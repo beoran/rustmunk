@@ -1,0 +1,16 @@
+#[link(name = "rustmunk",
+       vers = "0.1",
+       uuid = "unknown???",
+       url = "https://github.com/bjmey/rustmunk")];
+
+#[comment = "Chipmunk Physics ported Rust, experimentally."];
+#[author = "Beoran"];
+#[license = "BSD"];
+#[crate_type = "lib"];
+
+use std;
+
+mod physics {
+  mod vec;
+}  
+
