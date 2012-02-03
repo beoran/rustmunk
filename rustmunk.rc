@@ -11,8 +11,11 @@
 use std;
 
 mod cp {
+  mod arbiter;  
   mod num;
   mod vec2;
   mod bb;
+  mod aid;
+  mod shape;
 }  
 
