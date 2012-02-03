@@ -6,6 +6,8 @@ import cp::num::num;
 import cp::num::INFINITY;
 import cp::vec2;
 import cp::vec2::vec2;
+import cp::bb::bb;
+import cp::bb;
 
 
 type shapebase = {
@@ -30,13 +32,13 @@ enum shape_enum = {
 
 iface Shape {
   // Update, cache and return the bounding box of a shape.
-  cache_bb() -> bb;
+  fn cache_bb() -> bb;
   // Update, cache and return the bounding box of a shape with an explicit transformation.
-  update(pos : vec2, rot : vedc2) -> bb;
+  fn update(pos : vec2, rot : vec2) -> bb;
   // Test if a point lies within a shape.
-  point_query(p : vec2) -> bool;
+  fn point_query(p : vec2) -> bool;
   //
-  body(); 
+  fn body(); 
 /*  
 CP_DefineShapeStructGetter(cpBody*, body, Body);
 void cpShapeSetBody(cpShape *shape, cpBody *body);
