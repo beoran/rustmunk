@@ -12,7 +12,9 @@ iface Body {
 
 }
 
-type velocity_func = fn(b : @Body, gravity : vec2, damping : num);
+enum body_addr = @body;
+
+type velocity_func = fn(b : body_addr, gravity : vec2, damping : num);
 
 iface VelocityFunc {
   fn velocity_func(b : @body, gravity : vec2, damping : num);
@@ -32,7 +34,7 @@ impl Body for body {
   
 } 
 
-enum body_enum { body(body) }
+
 
 impl VelocityFunc for body {
   fn velocity_func(b : @body, gravity : vec2, damping : num) {
@@ -44,12 +46,36 @@ fn update_body(b : @body, gravity : vec2, damping : num) {
   b.velocity_func.velocity_func(b, gravity, damping)  
 }
 
-/*
+
 fn update_body_2(b : @body, gravity : vec2, damping : num) {
-  let bod = (*b) as Body;
-  b.velocity_func2(bod, gravity, damping);
+  b.velocity_func2(body_addr(b), gravity, damping);
 }
-*/
+
+enum obj_addr = @obj;
+type obj_fptr = fn(obj : obj_addr);
+
+type obj = { fptr : obj_fptr,  mutable index : int };
+
+fn new_obj(inew : int) -> obj {{
+  fptr : obj_incr, mutable index : inew
+}}
+
+fn obj_incr(o : obj_addr) {
+  o.index += 1;
+}
+
+
+#[test]
+fn test_obj() {
+  let ob  = @new_obj(3);
+  assert(ob.index == 3);  
+  obj_incr(obj_addr(ob));
+  assert(ob.index == 4);
+  // o didn't change since it a copy of it was boxed.
+  // assert(o.index == 3);
+}
+
+
 
 
 
